@@ -26,12 +26,12 @@ func Load() *Config {
 			Host: getEnv("SERVER_HOST", "0.0.0.0"),
 		},
 		Database: database.Config{
-			Driver:   getEnv("DB_DRIVER", "sqlite"),
+			Driver:   getEnv("DB_DRIVER", "sqlserver"),
 			Host:     getEnv("DB_HOST", "localhost"),
-			Port:     getEnv("DB_PORT", "5432"),
-			User:     getEnv("DB_USER", ""),
+			Port:     getEnv("DB_PORT", "1433"),
+			User:     getEnv("DB_USER", "sa"),
 			Password: getEnv("DB_PASSWORD", ""),
-			Database: getEnv("DB_NAME", "shop.db"),
+			Database: getEnv("DB_NAME", "ResearchDB"),
 		},
 	}
 }

@@ -2,6 +2,7 @@
 backend/bin/
 backend/*.db
 backend/.env
+backend/api
 
 # Frontend
 frontend/.next/
