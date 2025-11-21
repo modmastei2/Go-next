@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"net/url"
 
 	"github.com/modmastei2/Go-next/backend/internal/domain"
 	"gorm.io/driver/sqlserver"
@@ -27,9 +28,10 @@ func NewDatabase(config *Config) (*gorm.DB, error) {
 
 	// Build SQL Server DSN
 	// Format: sqlserver://username:password@host:port?database=dbname
+	// URL-encode the password to handle special characters
 	dsn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s",
-		config.User,
-		config.Password,
+		url.QueryEscape(config.User),
+		url.QueryEscape(config.Password),
 		config.Host,
 		config.Port,
 		config.Database,
