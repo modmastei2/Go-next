@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/modmastei2/Go-next/backend/internal/domain"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -25,14 +25,17 @@ func NewDatabase(config *Config) (*gorm.DB, error) {
 	var db *gorm.DB
 	var err error
 
-	// For demonstration, we'll use SQLite
-	// In production, you'd use PostgreSQL or MySQL
-	dsn := config.Database
-	if dsn == "" {
-		dsn = "shop.db"
-	}
+	// Build SQL Server DSN
+	// Format: sqlserver://username:password@host:port?database=dbname
+	dsn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s",
+		config.User,
+		config.Password,
+		config.Host,
+		config.Port,
+		config.Database,
+	)
 
-	db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{
+	db, err = gorm.Open(sqlserver.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
