@@ -28,13 +28,13 @@ func NewDatabase(config *Config) (*gorm.DB, error) {
 
 	// Build SQL Server DSN
 	// Format: sqlserver://username:password@host:port?database=dbname
-	// URL-encode the password to handle special characters
+	// URL-encode credentials and database name to handle special characters safely
 	dsn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s",
 		url.QueryEscape(config.User),
 		url.QueryEscape(config.Password),
 		config.Host,
 		config.Port,
-		config.Database,
+		url.QueryEscape(config.Database),
 	)
 
 	db, err = gorm.Open(sqlserver.Open(dsn), &gorm.Config{
