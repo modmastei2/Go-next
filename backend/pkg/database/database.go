@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/url"
+	"os"
+	"time"
 
 	"github.com/modmastei2/Go-next/backend/internal/domain"
 	"gorm.io/driver/sqlserver"
@@ -37,8 +39,18 @@ func NewDatabase(config *Config) (*gorm.DB, error) {
 		url.QueryEscape(config.Database),
 	)
 
+	// gorm logger
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n⚡ ", log.LstdFlags),
+		logger.Config{
+			SlowThreshold: time.Second,
+			LogLevel:      logger.Info,
+			Colorful:      true,
+		},
+	)
+
 	db, err = gorm.Open(sqlserver.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger: newLogger,
 	})
 
 	if err != nil {

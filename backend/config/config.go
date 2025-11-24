@@ -30,7 +30,7 @@ func Load() *Config {
 			Host:     getEnv("DB_HOST", "localhost"),
 			Port:     getEnv("DB_PORT", "1433"),
 			User:     getEnv("DB_USER", "sa"),
-			Password: getEnv("DB_PASSWORD", ""),
+			Password: getEnv("DB_PASSWORD", "S1u8p3a8#"),
 			Database: getEnv("DB_NAME", "ResearchDB"),
 		},
 	}
